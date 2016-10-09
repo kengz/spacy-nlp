@@ -9,6 +9,8 @@ machine:
 dependencies:
   override:
     - pip install socketIO-client
+    - pip install spacy
+    - python -m spacy.en.download
     - npm install
 
 test:
