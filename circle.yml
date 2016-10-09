@@ -1,0 +1,23 @@
+machine:
+  python:
+    version: 3.5.1
+  node:
+    version: 6
+  environment:
+    CODECLIMATE_REPO_TOKEN: 27bc491e0afef43347ae439a8e489f565a597493230aee70a460f19fb14bbdca
+
+dependencies:
+  override:
+    - pip install socketIO-client
+    - npm install
+
+test:
+  override:
+    - npm test
+  post:
+    - cat ./coverage/lcov.info | ./node_modules/.bin/codeclimate-test-reporter
+
+general:
+  branches:
+    ignore:
+      - gh-pages

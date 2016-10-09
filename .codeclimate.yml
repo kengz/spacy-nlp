@@ -1,0 +1,29 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - javascript
+        - python
+  fixme:
+    enabled: true
+  eslint:
+    enabled: true
+    checks:
+      no-process-exit:
+        enabled: false
+  radon:
+    enabled: true
+    config:
+      threshold: "C"
+  pep8:
+    enabled: true
+
+ratings:
+  paths:
+  - "**.js"
+  - "**.jsx"
+  - "**.py"
+
+exclude_paths:
+- test/
