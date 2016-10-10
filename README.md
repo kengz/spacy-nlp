@@ -34,6 +34,10 @@ You'll see log like:
 [Sun Oct 09 2016 16:53:44 GMT-0400 (EDT)] INFO All 1 IO clients have joined
 ```
 
+Since it uses [`poly-socketio`](https://github.com/kengz/poly-socketio), there'll be one IO server, and one `global.client`(internal to this module) in the same process, no matter how many times `poly-socketio` is called. This resolves conflicts for cross-project usage.
+
+E.g. [`AIVA`](https://github.com/kengz/aiva) uses `poly-socketio` to start a server for its internal cross-language communication, and uses `spacy-nlp` too. `spacy-nlp` will automatically use the IO server and the `global.client` from `AIVA`.
+
 Once it is ready, i.e. you can use the nodejs client `nlp` to parse texts:
 
 ```js

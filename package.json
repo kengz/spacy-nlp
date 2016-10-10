@@ -1,6 +1,6 @@
 {
   "name": "spacy-nlp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Expose Spacy nlp text parsing to Nodejs (and other languages) via socketIO",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,8 @@
     "socketIO",
     "python",
     "POS",
-    "NER"
+    "NER",
+    "syntaxnet"
   ],
   "author": "kengz kengzwl@gmail.com",
   "license": "MIT",
@@ -31,7 +32,7 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "lodash": "^4.16.4",
-    "poly-socketio": "^1.0.1",
+    "poly-socketio": "^1.1.0",
     "portscanner": "^1.0.0",
     "winston": "^2.2.0"
   },

@@ -7,7 +7,7 @@ process.env.IOPORT = process.env.IOPORT || 6466
 // output: [{text, len, tokens, noun_phrases, parse_tree, parse_list}]
 /* istanbul ignore next */
 function parse(text) {
-  polyIO.gClient({ port: process.env.IOPORT })
+  polyIO.client({ port: process.env.IOPORT })
   var msg = {
     input: text,
     to: 'nlp.cgkb-py',
