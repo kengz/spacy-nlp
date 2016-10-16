@@ -72,7 +72,7 @@ function ioStart() {
       }
     })
     .then(ioClient)
-  return global.ioPromise || Promise.resolve()
+  return (global.ioPromise || Promise.resolve()).delay(10)
 }
 
 /* istanbul ignore next */
