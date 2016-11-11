@@ -8,7 +8,6 @@ const log = require(path.join(__dirname, 'log'))
 const portscanner = require('portscanner')
 Promise.promisifyAll(portscanner)
 process.env.IOPORT = process.env.IOPORT || 6466
-// one can also set process.env.USE_PY2 to use python 2
 const bashSrc = (process.platform == 'darwin') ? '~/.bash_profile' : '~/.bashrc'
 
 // import other languages via child_process
@@ -41,7 +40,10 @@ function ioClient() {
   _.each(ioClientCmds, (cmds, lang) => {
     // spawn ioclients for other lang
     log.info(`Starting socketIO client for ${lang} at ${process.env.IOPORT}`)
-    var cp = spawn('/bin/sh', ['-c', `source ${bashSrc}`, `${lang} ${cmds['client']}`], { stdio: [process.stdin, process.stdout, 'pipe'] })
+    var cp = spawn('/bin/sh', ['-c', `
+      . ${bashSrc}
+      ${lang} ${cmds['client']}
+      `], { stdio: [process.stdin, process.stdout, 'pipe'] })
     children.push(cp)
 
     /* istanbul ignore next */
