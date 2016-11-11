@@ -12,8 +12,8 @@ process.env.IOPORT = process.env.IOPORT || 6466
 
 // import other languages via child_process
 var ioClientCmds = {
-  python3: {
-    // install_dependency: "python3 -m pip install socketIO-client",
+  python: {
+    // install_dependency: "python -m pip install socketIO-client",
     client: path.join(__dirname, 'client.py')
   }
 }
@@ -40,8 +40,7 @@ function ioClient() {
   _.each(ioClientCmds, (cmds, lang) => {
     // spawn ioclients for other lang
     log.info(`Starting socketIO client for ${lang} at ${process.env.IOPORT}`)
-    if (process.env.USE_PY2 === 'true') { lang = _.replace(lang, 'python3', 'python') }
-    var cp = spawn(lang, [cmds['client']], { stdio: [process.stdin, process.stdout, 'pipe'] })
+    var cp = spawn('/bin/sh', ['-c', `source ${bashSrc}; ${lang} ${cmds['client']}`], { stdio: [process.stdin, process.stdout, 'pipe'] })
     children.push(cp)
 
     /* istanbul ignore next */
