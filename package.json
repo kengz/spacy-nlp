@@ -1,11 +1,11 @@
 {
   "name": "spacy-nlp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Expose Spacy nlp text parsing to Nodejs (and other languages) via socketIO",
   "main": "index.js",
   "scripts": {
     "start": "node src/start-io.js",
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha"
+    "test": "istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "lodash": "^4.16.4",
-    "poly-socketio": "^1.1.0",
+    "poly-socketio": "^1.1.1",
     "portscanner": "^1.0.0",
     "winston": "^2.2.0"
   },
