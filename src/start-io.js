@@ -6,9 +6,12 @@ const path = require('path')
 const polyIO = require('poly-socketio')
 const log = require(path.join(__dirname, 'log'))
 const portscanner = require('portscanner')
+/* istanbul ignore next */
+const bashSrc = (process.platform == 'darwin') ? '~/.bash_profile' : '~/.bashrc'
+/* istanbul ignore next */
+const srcCmd = process.env.CI ? '' : `. ${bashSrc}`
 Promise.promisifyAll(portscanner)
 process.env.IOPORT = process.env.IOPORT || 6466
-const bashSrc = (process.platform == 'darwin') ? '~/.bash_profile' : '~/.bashrc'
 
 // import other languages via child_process
 var ioClientCmds = {
@@ -41,7 +44,7 @@ function ioClient() {
     // spawn ioclients for other lang
     log.info(`Starting socketIO client for ${lang} at ${process.env.IOPORT}`)
     var cp = spawn('/bin/sh', ['-c', `
-      . ${bashSrc}
+      ${srcCmd}
       ${lang} ${cmds['client']}
       `], { stdio: [process.stdin, process.stdout, 'pipe'] })
     children.push(cp)
