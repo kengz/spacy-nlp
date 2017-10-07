@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/start-io.js",
-    "test": "istanbul cover _mocha"
+    "test": "istanbul cover _mocha",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -34,7 +36,8 @@
     "lodash": "^4.16.4",
     "poly-socketio": "^1.1.1",
     "portscanner": "^1.0.0",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "snyk": "^1.41.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -42,5 +45,6 @@
     "codeclimate-test-reporter": "^0.4.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.0"
-  }
+  },
+  "snyk": true
 }
