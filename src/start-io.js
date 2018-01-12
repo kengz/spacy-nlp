@@ -84,7 +84,7 @@ function ioStart() {
 const cleanExit = () => { process.exit() }
 process.on('SIGINT', cleanExit) // catch ctrl-c
 process.on('SIGTERM', cleanExit) // catch kill
-process.on('uncaughtException', log.error)
+process.on('uncaughtException', (e) => log.error(`${e.message} ${e.stack}`))
 
 // export for use by hubot
 module.exports = ioStart
