@@ -38,7 +38,12 @@ if python3 -m pip show spacy socketIO-client >/dev/null; then
 else
   python3 -m pip install -U socketIO-client
   python3 -m pip install -U spacy
-  python3 -m spacy.en.download
+fi
+
+if python3 -m spacy info | grep en_core_web_md >/dev/null; then
+  echo "spaCy model already installed"
+else  
+  python3 -m spacy download en_core_web_md
 fi
 
 # install npm modules

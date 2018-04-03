@@ -1,6 +1,6 @@
 from collections import OrderedDict
-from spacy.en import English  # NLP with spaCy https://spacy.io
-nlp = English()  # will take some time to load
+import spacy  # NLP with spaCy https://spacy.io
+nlp = spacy.load('en_core_web_md')  # will take some time to load
 
 # Useful properties, summary of the docs from https://spacy.io
 
