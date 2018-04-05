@@ -10,7 +10,7 @@ dependencies:
   override:
     - pip install socketIO-client
     - pip install spacy
-    - python -m sputnik --name spacy find || python -m spacy.en.download
+    - python -m spacy download en_core_web_md
     - npm install
 
 test:
