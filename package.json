@@ -1,6 +1,6 @@
 {
   "name": "spacy-nlp",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Expose Spacy nlp text parsing to Nodejs (and other languages) via socketIO",
   "main": "index.js",
   "scripts": {
