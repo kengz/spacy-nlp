@@ -123,7 +123,7 @@ def parse(input):
     '''
     parse for multi-sentences; split and apply parse in a list.
     '''
-    doc = nlp(input, tag=False, entity=False)
+    doc = nlp(input)
     return [parse_sentence(sent.text) for sent in doc.sents]
 
 # print(parse("Bob brought the pizza to Alice. I saw the man with glasses."))
