@@ -85,83 +85,92 @@ And the output is the syntax parse tree with POS tagging. For the `parse_tree`, 
     len: 7,
     tokens: [ 'Bob', 'Brought', 'the', 'pizza', 'to', 'Alice', '.' ],
     noun_phrases: [ 'Bob', 'the pizza', 'Alice' ],
-    parse_tree: [ [Object] ],
+    parse_tree:
+     [ { word: 'Brought',
+         lemma: 'bring',
+         NE: '',
+         POS_fine: 'VBD',
+         POS_coarse: 'VERB',
+         arc: 'ROOT',
+         modifiers:
+          [ { word: 'Bob',
+              lemma: 'Bob',
+              NE: 'PERSON',
+              POS_fine: 'NNP',
+              POS_coarse: 'PROPN',
+              arc: 'nsubj',
+              modifiers: [] },
+            { word: 'pizza',
+              lemma: 'pizza',
+              NE: '',
+              POS_fine: 'NN',
+              POS_coarse: 'NOUN',
+              arc: 'dobj',
+              modifiers:
+               [ { word: 'the',
+                   lemma: 'the',
+                   NE: '',
+                   POS_fine: 'DT',
+                   POS_coarse: 'DET',
+                   arc: 'det',
+                   modifiers: [] } ] },
+            { word: 'to',
+              lemma: 'to',
+              NE: '',
+              POS_fine: 'IN',
+              POS_coarse: 'ADP',
+              arc: 'prep',
+              modifiers:
+               [ { word: 'Alice',
+                   lemma: 'Alice',
+                   NE: 'PERSON',
+                   POS_fine: 'NNP',
+                   POS_coarse: 'PROPN',
+                   arc: 'pobj',
+                   modifiers: [] } ] },
+            { word: '.',
+              lemma: '.',
+              NE: '',
+              POS_fine: '.',
+              POS_coarse: 'PUNCT',
+              arc: 'punct',
+              modifiers: [] } ] } ],
     parse_list:
-     [ [Object],
-       [Object],
-       [Object],
-       [Object],
-       [Object],
-       [Object],
-       [Object] ] } ]
-[
-  {
-    "word": "Brought",
-    "lemma": "bring",
-    "NE": "",
-    "POS_fine": "VBD",
-    "POS_coarse": "VERB",
-    "arc": "ROOT",
-    "modifiers": [
-      {
-        "word": "Bob",
-        "lemma": "Bob",
-        "NE": "PERSON",
-        "POS_fine": "NNP",
-        "POS_coarse": "PROPN",
-        "arc": "nsubj",
-        "modifiers": []
-      },
-      {
-        "word": "pizza",
-        "lemma": "pizza",
-        "NE": "",
-        "POS_fine": "NN",
-        "POS_coarse": "NOUN",
-        "arc": "dobj",
-        "modifiers": [
-          {
-            "word": "the",
-            "lemma": "the",
-            "NE": "",
-            "POS_fine": "DT",
-            "POS_coarse": "DET",
-            "arc": "det",
-            "modifiers": []
-          }
-        ]
-      },
-      {
-        "word": "to",
-        "lemma": "to",
-        "NE": "",
-        "POS_fine": "IN",
-        "POS_coarse": "ADP",
-        "arc": "prep",
-        "modifiers": [
-          {
-            "word": "Alice",
-            "lemma": "Alice",
-            "NE": "PERSON",
-            "POS_fine": "NNP",
-            "POS_coarse": "PROPN",
-            "arc": "pobj",
-            "modifiers": []
-          }
-        ]
-      },
-      {
-        "word": ".",
-        "lemma": ".",
-        "NE": "",
-        "POS_fine": ".",
-        "POS_coarse": "PUNCT",
-        "arc": "punct",
-        "modifiers": []
-      }
-    ]
-  }
-]
+     [ { word: 'Bob',
+         lemma: 'Bob',
+         NE: 'PERSON',
+         POS_fine: 'NNP',
+         POS_coarse: 'PROPN' },
+       { word: 'Brought',
+         lemma: 'bring',
+         NE: '',
+         POS_fine: 'VBD',
+         POS_coarse: 'VERB' },
+       { word: 'the',
+         lemma: 'the',
+         NE: '',
+         POS_fine: 'DT',
+         POS_coarse: 'DET' },
+       { word: 'pizza',
+         lemma: 'pizza',
+         NE: '',
+         POS_fine: 'NN',
+         POS_coarse: 'NOUN' },
+       { word: 'to',
+         lemma: 'to',
+         NE: '',
+         POS_fine: 'IN',
+         POS_coarse: 'ADP' },
+       { word: 'Alice',
+         lemma: 'Alice',
+         NE: 'PERSON',
+         POS_fine: 'NNP',
+         POS_coarse: 'PROPN' },
+       { word: '.',
+         lemma: '.',
+         NE: '',
+         POS_fine: '.',
+         POS_coarse: 'PUNCT' } ] } ]
 ```
 
 ### Noun Parsing

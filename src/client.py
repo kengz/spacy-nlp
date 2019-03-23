@@ -120,6 +120,12 @@ def handle(msg):
             except:
                 e = sys.exc_info()[0]
                 print('py handle fails.', e)
+            try:
+                reply = getAt(getAt(lib_py, to), intent)(
+                    msg.get("input"))
+            except:
+                e = sys.exc_info()[0]
+                print('py handle fails.', e)
         finally:
             # try JSON or made-JSON output
             reply = correctReply(reply, msg)
