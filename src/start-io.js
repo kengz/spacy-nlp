@@ -15,7 +15,7 @@ process.env.IOPORT = process.env.IOPORT || 6466;
 
 // import other languages via child_process
 var ioClientCmds = {
-  python: {
+  python3: {
     // install_dependency: "python -m pip install socketIO-client",
     client: path.join(__dirname, "client.py")
   }

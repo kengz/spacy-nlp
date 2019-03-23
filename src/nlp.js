@@ -18,7 +18,7 @@ function parse(text) {
 function parse_nouns(text, options) {
   polyIO.client({ port: process.env.IOPORT });
   const msg = {
-    input: text,
+    input: [text],
     options: options,
     to: "nlp.cgkb-py",
     intent: "parse_nouns"
@@ -31,7 +31,7 @@ function parse_nouns(text, options) {
 function parse_verbs(text, options) {
   polyIO.client({ port: process.env.IOPORT });
   const msg = {
-    input: text,
+    input: [text],
     options: options,
     to: "nlp.cgkb-py",
     intent: "parse_verbs"
@@ -44,7 +44,7 @@ function parse_verbs(text, options) {
 function parse_adj(text, options) {
   polyIO.client({ port: process.env.IOPORT });
   const msg = {
-    input: text,
+    input: [text],
     options: options,
     to: "nlp.cgkb-py",
     intent: "parse_adj"
@@ -57,7 +57,7 @@ function parse_adj(text, options) {
 function parse_named_entities(text, options) {
   polyIO.client({ port: process.env.IOPORT });
   const msg = {
-    input: text,
+    input: [text],
     options: options,
     to: "nlp.cgkb-py",
     intent: "parse_named_entities"
@@ -70,7 +70,7 @@ function parse_named_entities(text, options) {
 function parse_date(text, options) {
   polyIO.client({ port: process.env.IOPORT });
   const msg = {
-    input: text,
+    input: [text],
     options: options,
     to: "nlp.cgkb-py",
     intent: "parse_date"
@@ -83,7 +83,7 @@ function parse_date(text, options) {
 function parse_time(text, options) {
   polyIO.client({ port: process.env.IOPORT });
   const msg = {
-    input: text,
+    input: [text],
     options: options,
     to: "nlp.cgkb-py",
     intent: "parse_time"

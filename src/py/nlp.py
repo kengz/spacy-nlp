@@ -98,134 +98,145 @@ def parse_nouns(input, options):
     resultArray = []
     for doc in nlp.pipe(input, disable=['ner', 'parser', 'textcat']):
         for token in doc:
-            if 'count' in options.type:
+            if 'count' in options:
                 if token.pos_ == 'NOUN':
                     nounCount += 1
-            if 'words' in options.type:
+            if 'words' in options:
                 if token.pos_ == 'NOUN':
                     nounArray.append(token.text)
-    if 'count' in options.type:
+    if 'count' in options:
         inner = {}
         inner['type'] = 'count'
         inner['result'] = nounCount
         resultArray.append(inner)
-    if 'words' in options.type:
+    if 'words' in options:
         inner = {}
-        inner['type'] = 'count'
+        inner['type'] = 'words'
         inner['result'] = nounArray
+        resultArray.append(inner)
     return resultArray
 
 
 def parse_verbs(input, options):
     verbCount = 0
     verbArray = []
+    resultArray = []
     for doc in nlp.pipe(input, disable=['ner', 'parser', 'textcat']):
         for token in doc:
-            if 'count' in options.type:
+            if 'count' in options:
                 if token.pos_ == 'VERB':
                     verbCount += 1
-            if 'words' in options.type:
+            if 'words' in options:
                 if token.pos_ == 'VERB':
                     verbArray.append(token.text)
-    if 'count' in options.type:
+    if 'count' in options:
         inner = {}
         inner['type'] = 'count'
         inner['result'] = verbCount
         resultArray.append(inner)
-    if 'words' in options.type:
+    if 'words' in options:
         inner = {}
-        inner['type'] = 'count'
+        inner['type'] = 'words'
         inner['result'] = verbArray
+        resultArray.append(inner)
     return resultArray
 
 
 def parse_adj(input, options):
     adjCount = 0
     adjArray = []
+    resultArray = []
     for doc in nlp.pipe(input, disable=['ner', 'parser', 'textcat']):
         for token in doc:
-            if 'count' in options.type:
-                if token.pos_ == 'adj':
+            if 'count' in options:
+                if token.pos_ == 'ADJ':
                     adjCount += 1
-            if 'words' in options.type:
-                if token.pos_ == 'adj':
+            if 'words' in options:
+                if token.pos_ == 'ADJ':
                     adjArray.append(token.text)
-    if 'count' in options.type:
+    if 'count' in options:
         inner = {}
         inner['type'] = 'count'
         inner['result'] = adjCount
         resultArray.append(inner)
-    if 'words' in options.type:
+    if 'words' in options:
         inner = {}
-        inner['type'] = 'count'
+        inner['type'] = 'words'
         inner['result'] = adjArray
+        resultArray.append(inner)
     return resultArray
 
 
 def parse_named_entities(input, options):
     entCount = 0
     entArray = []
+    resultArray = []
     for doc in nlp.pipe(input, disable=['textcat']):
         for ent in doc.ents:
-            if 'count' in options.type:
+            if 'count' in options:
                 if ent.label_ not in {'DATE', 'TIME', 'ORDINAL', 'QUANTITY', 'PERCENT', 'CARDINAL', 'MONEY'}:
                     entCount += 1
-            if 'words' in options.type:
+            if 'words' in options:
                 if ent.label_ not in {'DATE', 'TIME', 'ORDINAL', 'QUANTITY', 'PERCENT', 'CARDINAL', 'MONEY'}:
-                    entArray.append(token.text)
-    if 'count' in options.type:
+                    entArray.append(ent.text)
+    if 'count' in options:
         inner = {}
         inner['type'] = 'count'
         inner['result'] = entCount
         resultArray.append(inner)
-    if 'words' in options.type:
+    if 'words' in options:
         inner = {}
-        inner['type'] = 'count'
+        inner['type'] = 'words'
         inner['result'] = entArray
+        resultArray.append(inner)
     return resultArray
 
 
 def parse_date(input, options):
     dateCount = 0
     dateArray = []
+    resultArray = []
     for doc in nlp.pipe(input, disable=['textcat']):
         for ent in doc.ents:
-            if 'count' in options.type:
+            if 'count' in options:
                 if ent.label_ == 'DATE':
                     dateCount += 1
-            if 'words' in options.type:
+            if 'words' in options:
                 if ent.label_ == 'DATE':
-                    dateArray.append(token.text)
-    if 'count' in options.type:
+                    dateArray.append(ent.text)
+    if 'count' in options:
         inner = {}
         inner['type'] = 'count'
         inner['result'] = dateCount
         resultArray.append(inner)
-    if 'words' in options.type:
+    if 'words' in options:
         inner = {}
-        inner['type'] = 'count'
+        inner['type'] = 'words'
         inner['result'] = dateArray
+        resultArray.append(inner)
     return resultArray
 
 
 def parse_time(input, options):
     timeCount = 0
     timeArray = []
+    resultArray = []
     for doc in nlp.pipe(input, disable=['textcat']):
         for ent in doc.ents:
-            if 'count' in options.type:
+            if 'count' in options:
                 if ent.label_ == 'TIME':
                     timeCount += 1
-            if 'words' in options.type:
+            if 'words' in options:
                 if ent.label_ == 'TIME':
-                    timeArray.append(token.text)
-    if 'count' in options.type:
+                    timeArray.append(ent.text)
+    if 'count' in options:
         inner = {}
         inner['type'] = 'count'
         inner['result'] = timeCount
         resultArray.append(inner)
-    if 'words' in options.type:
+    if 'words' in options:
         inner = {}
-        inner['type'] = 'count'
+        inner['type'] = 'words'
         inner['result'] = timeArray
+        resultArray.append(inner)
     return resultArray
