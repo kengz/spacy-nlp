@@ -39,6 +39,10 @@ Since it uses [`poly-socketio`](https://github.com/kengz/poly-socketio), there'l
 
 E.g. [`AIVA`](https://github.com/kengz/aiva) uses `poly-socketio` to start a server for its internal cross-language communication, and uses `spacy-nlp` too. `spacy-nlp` will automatically use the IO server and the `global.client` from `AIVA`.
 
+## Methods
+
+### Syntax Parsing
+
 Once it is ready, i.e. you can use the nodejs client `nlp` to parse texts:
 
 ```js
@@ -50,6 +54,9 @@ nlp.parse("Bob Brought the pizza to Alice.").then(output => {
   console.log(output);
   console.log(JSON.stringify(output[0].parse_tree, null, 2));
 });
+
+// Store output into variable
+const result = await nlp.parse("Bob Brought the pizza to Alice.");
 ```
 
 And the output is the syntax parse tree with POS tagging. For the `parse_tree`, `NE` means `Named Entity` for NER; `arc` of an object is incident on it. An arc points from `head` word to `modifier` word. See the explanation on [Tensorflow/syntaxnet](https://github.com/tensorflow/models/tree/master/syntaxnet#dependency-parsing-transition-based-parsing).
@@ -136,4 +143,205 @@ And the output is the syntax parse tree with POS tagging. For the `parse_tree`, 
     ]
   }
 ]
+```
+
+### Noun Parsing
+
+```js
+// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+const options = ["count"];
+
+// Note you can pass multiple sentences concat in one string.
+nlp
+  .parse_nouns(
+    "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+    options
+  )
+  .then(output => {
+    console.log(output);
+  });
+
+// Store output into variable
+const result = await nlp.parse_nouns(
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+  options
+);
+
+// 19
+```
+
+### Verb Parsing
+
+```js
+// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+const options = ["count"];
+
+// Note you can pass multiple sentences concat in one string.
+nlp
+  .parse_verbs(
+    "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+    options
+  )
+  .then(output => {
+    console.log(output);
+  });
+
+// Store output into variable
+const result = await nlp.parse_verbs(
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+  options
+);
+
+// 7
+```
+
+### Adjective Parsing
+
+```js
+// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+const options = ["count"];
+
+// Note you can pass multiple sentences concat in one string.
+nlp
+  .parse_adj(
+    "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+    options
+  )
+  .then(output => {
+    console.log(output);
+  });
+
+// Store output into variable
+const result = await nlp.parse_adj(
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+  options
+);
+
+// 8
+```
+
+### Named Entity Parsing
+
+```js
+// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+const options = ["count"];
+
+// Note you can pass multiple sentences concat in one string.
+nlp
+  .parse_named_entities(
+    "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+    options
+  )
+  .then(output => {
+    console.log(output);
+  });
+
+// Store output into variable
+const result = await nlp.parse_named_entities(
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+  options
+);
+
+// 8
+```
+
+### Date Parsing
+
+```js
+// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+const options = ["text"];
+
+// Note you can pass multiple sentences concat in one string.
+nlp
+  .parse_date(
+    "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+    options
+  )
+  .then(output => {
+    console.log(output);
+  });
+
+// Store output into variable
+const result = await nlp.parse_date(
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+  options
+);
+
+// ['22 June 1941', 'from 1939 to 1945']
+```
+
+### Time Parsing
+
+```js
+// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+const options = ["count"];
+
+// Note you can pass multiple sentences concat in one string.
+nlp
+  .parse_time(
+    "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+    options
+  )
+  .then(output => {
+    console.log(output);
+  });
+
+// Store output into variable
+const result = await nlp.parse_time(
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.",
+  options
+);
+
+// 0
+```
+
+## Helpers
+
+The following helper functions are not asynchronous and will not return a promise.
+
+### Splitting Large Text
+
+If you have very large text to process, it's best to split the text as Spacy has a max_length limit of 1,000,000 characters.
+
+```js
+const text =
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.";
+
+const textArray = nlp.split_text(text);
+
+// ["On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of", "war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often", "abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945."]
+```
+
+### Duplicate Removal
+
+If you want to return an array of words, the result will include duplicate strings. To remove duplicates you can use `nlp.remove_duplicates`.
+
+```js
+const text =
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.";
+
+const verbArray = await nlp.parse_verbs(text);
+// ["war", "war", "war", "war", "war", "world", "world", "world", "axis", "axis", "ww2", "wwii", "land", "wehrmacht", "union", "powers", "attrition"]
+
+const result = nlp.remove_duplicates(verbArray);
+
+// ["war", "world", "axis", "ww2", "wwii", "land", "wehrmacht", "union", "powers", "attrition"]
+```
+
+### Top n Words in a String
+
+```js
+const text =
+  "On 22 June 1941, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history, which trapped the Axis, most crucially the German Wehrmacht, into a war of attrition. World War II (often abbreviated to WWII or WW2), also known as the Second World War, was a global war that lasted from 1939 to 1945.";
+
+// Arguments are text and cutoff (Top n Words). Returns an array of objects.
+const result = nlp.top_words(text, 5);
+
+[
+  { word: "the", count: 6 },
+  { word: "of", count: 3 },
+  { word: "war", count: 3 },
+  { word: "Axis", count: 2 },
+  { word: "a", count: 2 }
+];
 ```
