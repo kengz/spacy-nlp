@@ -2,6 +2,25 @@
 
 Expose Spacy nlp text parsing to Nodejs (and other languages) via socketIO
 
+<!-- TOC -->
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Methods](#methods)
+  - [Syntax Parsing](#syntax-parsing)
+  - [Noun Parsing](#noun-parsing)
+  - [Verb Parsing](#verb-parsing)
+  - [Adjective Parsing](#adjective-parsing)
+  - [Named Entity Parsing](#named-entity-parsing)
+  - [Date Parsing](#date-parsing)
+  - [Time Parsing](#time-parsing)
+- [Helpers](#helpers)
+  - [Splitting Large Text](#splitting-large-text)
+  - [Duplicate Removal](#duplicate-removal)
+  - [Top n Words in a String](#top-n-words-in-a-string)
+
+<!-- /TOC -->
+
 ## Installation
 
 ```shell
