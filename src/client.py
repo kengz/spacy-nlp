@@ -11,7 +11,7 @@ import six
 import socket
 import websocket
 from socketIO_client_nexus import SocketIO, WebsocketTransport
-from py import *
+from py import nlp
 
 
 def recv_packet_unicode(self):
@@ -34,6 +34,7 @@ def recv_packet_unicode(self):
     engineIO_packet_type, engineIO_packet_data = parse_packet_text(encoded)
     yield engineIO_packet_type, engineIO_packet_data
 
+
 # Set the new recv_packet_unicode method
 WebsocketTransport.recv_packet = recv_packet_unicode
 
@@ -49,6 +50,7 @@ class dotdict(dict):
         return self.get(attr)
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
+
 
 # the global object to access all modules (nested) in py/
 lib_py = dotdict(globals())
@@ -113,7 +115,14 @@ def handle(msg):
             reply = getAt(getAt(lib_py, to), intent)(msg)
         except:
             try:
-                reply = getAt(getAt(lib_py, to), intent)(msg.get("input"))
+                reply = getAt(getAt(lib_py, to), intent)(
+                    msg.get("input"), msg.get("options"))
+            except:
+                e = sys.exc_info()[0]
+                print('py handle fails.', e)
+            try:
+                reply = getAt(getAt(lib_py, to), intent)(
+                    msg.get("input"))
             except:
                 e = sys.exc_info()[0]
                 print('py handle fails.', e)
@@ -122,6 +131,7 @@ def handle(msg):
             reply = correctReply(reply, msg)
             if reply.get('to') is not None:
                 client.emit('pass', reply)
+
 
 # add listener
 client.on('take', handle)

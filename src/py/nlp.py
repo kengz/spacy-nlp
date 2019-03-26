@@ -2,46 +2,9 @@ from collections import OrderedDict
 import spacy  # NLP with spaCy https://spacy.io
 nlp = spacy.load('en_core_web_md')  # will take some time to load
 
-# Useful properties, summary of the docs from https://spacy.io
-
-# class Doc
-# properties: text, vector, vector_norm, ents, noun_chunks, sents
-# method: similarity
-# NER specs https://spacy.io/docs#annotation-ner
-# doc tokenization will preserve meaningful units together
-
-# class Token
-# token.doc -> parent sequence
-# string features: text, lemma, lower, shape
-# boolean flags: https://spacy.io/docs#token-booleanflags
-# POS: pos_, tag_
-# tree: https://spacy.io/docs#token-navigating
-# ner: ent_type, ent_iob
-
-# class Span
-# span.doc -> parent sequence
-# vector, vector_norm
-# string features: text, lemma
-# methods: similarity
-# syntactic parse: use root, lefts, rights, subtree
-# https://spacy.io/docs#span-navigativing-parse
-
-
-# !more to implement:
-# also filter to prepare for tree
-# syntactic parse tree https://spacy.io/docs#span-navigativing-parse
-# word2vec, numpy array
-# similarity https://spacy.io/docs#examples-word-vectors
-# https://spacy.io/docs#span-similarity
-
-# https://github.com/spacy-io/sense2vec/
-# tuts https://spacy.io/docs#tutorials
-# custom NER and intent arg parsing eg
-# https://github.com/spacy-io/spaCy/issues/217
-
-
 # Helper methods
 ##########################################
+
 
 def merge_ents(doc):
     '''Helper: merge adjacent entities into single tokens; modifies the doc.'''
@@ -127,3 +90,153 @@ def parse(input):
     return [parse_sentence(sent.text) for sent in doc.sents]
 
 # print(parse("Bob brought the pizza to Alice. I saw the man with glasses."))
+
+
+def parse_nouns(input, options):
+    nounCount = 0
+    nounArray = []
+    resultArray = []
+    for doc in nlp.pipe(input, disable=['ner', 'parser', 'textcat']):
+        for token in doc:
+            if 'count' in options:
+                if token.pos_ == 'NOUN':
+                    nounCount += 1
+            if 'words' in options:
+                if token.pos_ == 'NOUN':
+                    nounArray.append(token.text)
+    if 'count' in options:
+        inner = {}
+        inner['type'] = 'count'
+        inner['result'] = nounCount
+        resultArray.append(inner)
+    if 'words' in options:
+        inner = {}
+        inner['type'] = 'words'
+        inner['result'] = nounArray
+        resultArray.append(inner)
+    return resultArray
+
+
+def parse_verbs(input, options):
+    verbCount = 0
+    verbArray = []
+    resultArray = []
+    for doc in nlp.pipe(input, disable=['ner', 'parser', 'textcat']):
+        for token in doc:
+            if 'count' in options:
+                if token.pos_ == 'VERB':
+                    verbCount += 1
+            if 'words' in options:
+                if token.pos_ == 'VERB':
+                    verbArray.append(token.text)
+    if 'count' in options:
+        inner = {}
+        inner['type'] = 'count'
+        inner['result'] = verbCount
+        resultArray.append(inner)
+    if 'words' in options:
+        inner = {}
+        inner['type'] = 'words'
+        inner['result'] = verbArray
+        resultArray.append(inner)
+    return resultArray
+
+
+def parse_adj(input, options):
+    adjCount = 0
+    adjArray = []
+    resultArray = []
+    for doc in nlp.pipe(input, disable=['ner', 'parser', 'textcat']):
+        for token in doc:
+            if 'count' in options:
+                if token.pos_ == 'ADJ':
+                    adjCount += 1
+            if 'words' in options:
+                if token.pos_ == 'ADJ':
+                    adjArray.append(token.text)
+    if 'count' in options:
+        inner = {}
+        inner['type'] = 'count'
+        inner['result'] = adjCount
+        resultArray.append(inner)
+    if 'words' in options:
+        inner = {}
+        inner['type'] = 'words'
+        inner['result'] = adjArray
+        resultArray.append(inner)
+    return resultArray
+
+
+def parse_named_entities(input, options):
+    entCount = 0
+    entArray = []
+    resultArray = []
+    for doc in nlp.pipe(input, disable=['textcat']):
+        for ent in doc.ents:
+            if 'count' in options:
+                if ent.label_ not in {'DATE', 'TIME', 'ORDINAL', 'QUANTITY', 'PERCENT', 'CARDINAL', 'MONEY'}:
+                    entCount += 1
+            if 'words' in options:
+                if ent.label_ not in {'DATE', 'TIME', 'ORDINAL', 'QUANTITY', 'PERCENT', 'CARDINAL', 'MONEY'}:
+                    entArray.append(ent.text)
+    if 'count' in options:
+        inner = {}
+        inner['type'] = 'count'
+        inner['result'] = entCount
+        resultArray.append(inner)
+    if 'words' in options:
+        inner = {}
+        inner['type'] = 'words'
+        inner['result'] = entArray
+        resultArray.append(inner)
+    return resultArray
+
+
+def parse_date(input, options):
+    dateCount = 0
+    dateArray = []
+    resultArray = []
+    for doc in nlp.pipe(input, disable=['textcat']):
+        for ent in doc.ents:
+            if 'count' in options:
+                if ent.label_ == 'DATE':
+                    dateCount += 1
+            if 'words' in options:
+                if ent.label_ == 'DATE':
+                    dateArray.append(ent.text)
+    if 'count' in options:
+        inner = {}
+        inner['type'] = 'count'
+        inner['result'] = dateCount
+        resultArray.append(inner)
+    if 'words' in options:
+        inner = {}
+        inner['type'] = 'words'
+        inner['result'] = dateArray
+        resultArray.append(inner)
+    return resultArray
+
+
+def parse_time(input, options):
+    timeCount = 0
+    timeArray = []
+    resultArray = []
+    for doc in nlp.pipe(input, disable=['textcat']):
+        for ent in doc.ents:
+            if 'count' in options:
+                if ent.label_ == 'TIME':
+                    timeCount += 1
+            if 'words' in options:
+                if ent.label_ == 'TIME':
+                    timeArray.append(ent.text)
+    if 'count' in options:
+        inner = {}
+        inner['type'] = 'count'
+        inner['result'] = timeCount
+        resultArray.append(inner)
+    if 'words' in options:
+        inner = {}
+        inner['type'] = 'words'
+        inner['result'] = timeArray
+        resultArray.append(inner)
+    return resultArray
