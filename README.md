@@ -176,7 +176,7 @@ And the output is the syntax parse tree with POS tagging. For the `parse_tree`, 
 ### Noun Parsing
 
 ```js
-// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+// Available options are count (returns the total count) and words (returns the parsed strings) You can specify one or both.
 const options = ["count"];
 
 // Note you can pass multiple sentences concat in one string.
@@ -201,7 +201,7 @@ const result = await nlp.parse_nouns(
 ### Verb Parsing
 
 ```js
-// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+// Available options are count (returns the total count) and words (returns the parsed strings) You can specify one or both.
 const options = ["count"];
 
 // Note you can pass multiple sentences concat in one string.
@@ -226,7 +226,7 @@ const result = await nlp.parse_verbs(
 ### Adjective Parsing
 
 ```js
-// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+// Available options are count (returns the total count) and words (returns the parsed strings) You can specify one or both.
 const options = ["count"];
 
 // Note you can pass multiple sentences concat in one string.
@@ -251,7 +251,7 @@ const result = await nlp.parse_adj(
 ### Named Entity Parsing
 
 ```js
-// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+// Available options are count (returns the total count) and words (returns the parsed strings) You can specify one or both.
 const options = ["count"];
 
 // Note you can pass multiple sentences concat in one string.
@@ -276,8 +276,8 @@ const result = await nlp.parse_named_entities(
 ### Date Parsing
 
 ```js
-// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
-const options = ["text"];
+// Available options are count (returns the total count) and words (returns the parsed strings) You can specify one or both.
+const options = ["words"];
 
 // Note you can pass multiple sentences concat in one string.
 nlp
@@ -301,7 +301,7 @@ const result = await nlp.parse_date(
 ### Time Parsing
 
 ```js
-// Available options are count (returns the total count) and text (returns the parsed strings) You can specify one or both.
+// Available options are count (returns the total count) and words (returns the parsed strings) You can specify one or both.
 const options = ["count"];
 
 // Note you can pass multiple sentences concat in one string.
