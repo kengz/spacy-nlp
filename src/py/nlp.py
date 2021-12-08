@@ -8,10 +8,9 @@ nlp = spacy.load('en_core_web_md')  # will take some time to load
 
 def merge_ents(doc):
     '''Helper: merge adjacent entities into single tokens; modifies the doc.'''
-    for ent in doc.ents:
-        ent.merge(ent.root.tag_, ent.text, ent.label_)
-    return doc
-
+    with doc.retokenize() as retokenizer:
+        for ent in doc.ents:
+            retokenizer.merge(ent)
 
 def format_POS(token, light=False, flat=False):
     '''helper: form the POS output for a token'''
