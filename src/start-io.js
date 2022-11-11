@@ -12,6 +12,7 @@ const bashSrc = process.platform == "darwin" ? "~/.bash_profile" : "~/.bashrc";
 const srcCmd = process.env.CI ? "" : `. ${bashSrc}`;
 Promise.promisifyAll(portscanner);
 process.env.IOPORT = process.env.IOPORT || 6466;
+process.env.PROCESSEXIT =  process.env.PROCESSEXIT || "YES"; 
 
 // import other languages via child_process
 var ioClientCmds = {
@@ -90,7 +91,9 @@ function ioStart() {
 
 /* istanbul ignore next */
 const cleanExit = () => {
-  process.exit();
+  if(process.env.PROCESSEXIT === "YES"){
+    process.exit();
+  }
 };
 process.on("SIGINT", cleanExit); // catch ctrl-c
 process.on("SIGTERM", cleanExit); // catch kill
